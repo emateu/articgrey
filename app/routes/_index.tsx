@@ -6,6 +6,17 @@ import type {
   FeaturedCollectionFragment,
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
+import {BannerWide} from '../components/ui/banner-wide';
+import {InstagramProfile} from '../components/ui/instagram-profile';
+import {FitnessGoals} from '../components/ui/fitness-goals';
+import {BrandTrustBanner} from '../components/ui/brand-trust-banner';
+import {InfiniteMarquee} from '../components/ui/infinite-marquee';
+import {TrendingCarousel} from '../components/ui/trending-carousel';
+import {SupplementFeatures} from '../components/ui/supplement-features';
+import {InfiniteVideoCarousel} from '../components/ui/infinite-video-carousel';
+import {BundlesCarousel} from '../components/ui/bundles-carousel';
+import {CustomizedProteinPowder} from '../components/ui/customized-protein-powder';
+import {HeroBanner} from '../components/ui/hero-banner';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -59,8 +70,21 @@ export default function Homepage() {
   const data = useLoaderData<typeof loader>();
   return (
     <div className="home">
-      <FeaturedCollection collection={data.featuredCollection} />
-      <RecommendedProducts products={data.recommendedProducts} />
+      <BannerWide />
+      <InfiniteMarquee />
+
+      <div className="space-y-12">
+        <BrandTrustBanner />
+        <FitnessGoals />
+        <TrendingCarousel />
+        <SupplementFeatures />
+        <InfiniteVideoCarousel />
+        <BundlesCarousel />
+        <CustomizedProteinPowder />
+        <HeroBanner />
+        <InstagramProfile />
+        <RecommendedProducts products={data.recommendedProducts} />
+      </div>
     </div>
   );
 }
@@ -93,8 +117,8 @@ function RecommendedProducts({
   products: Promise<RecommendedProductsQuery | null>;
 }) {
   return (
-    <div className="recommended-products">
-      <h2>Recommended Products</h2>
+    <div className="max-w-xxl mx-auto recommended-products">
+      <h2 className="text-xl font-bold mb-5">Recommended Products</h2>
       <Suspense fallback={<div>Loading...</div>}>
         <Await resolve={products}>
           {(response) => (
